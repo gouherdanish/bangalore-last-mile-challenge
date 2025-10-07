@@ -14,6 +14,14 @@ wheels/
 # Data
 **/data/
 *old*
+**/*.csv
 
 # Model
 **/models/
+
+# Logs
+**/logs/
+
+# Notebooks
+**/notebooks/
+**/*.ipynb
