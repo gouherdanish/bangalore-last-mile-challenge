@@ -84,7 +84,7 @@ Process historical trip data to create training features for machine learning mo
 
 ```bash
 cd preprocessing/src
-python training_data_generator.py --data-path ../data --dates "date=2025-08-17,date=2025-08-18,date=2025-08-19"
+python training_data_generator.py --raw-data-path ../data/raw/trip_data/BMTC_05_august_to_07_august --processed-data-path ../data/processed --dates "date=2025-08-17,date=2025-08-18,date=2025-08-19"
 ```
 
 Example
@@ -93,7 +93,8 @@ python training_data_generator.py --raw-data-path /Users/gouher/Documents/person
 ```
 
 ### Parameters
-- `--data-path`: Path to the data directory (default: `./data`)
+- `--raw-data-path`: Path to the raw data directory
+- `--processed-data-path`: Path to the processed data directory where the user wants to store processed data locally
 - `--dates`: Comma-separated list of dates to process (required)
 - `--exclude-routes`: Comma-separated list of route IDs to exclude (optional)
 - `--include-routes`: Comma-separated list of route IDs to include (optional, takes precedence)
@@ -154,18 +155,20 @@ Ensure you have the following Python packages installed:
    python static_data_processor.py --data-path ../data
    ```
 
-2. **Generate training data for specific dates:**
+2. **Generate training data for specific dates for most frequent routes:**
    ```bash
    python training_data_generator.py \
-     --data-path ../data \
+     --raw-data-path ../data/raw/trip_data/BMTC_17_august_to_19_august \
+     --processed-data-path ../data/processed
      --dates "date=2025-08-17,date=2025-08-18,date=2025-08-19" \
      --max-routes 10
    ```
 
-3. **Process specific routes:**
+3. **Process specific routes for a date:**
    ```bash
    python training_data_generator.py \
-     --data-path ../data \
+     --raw-data-path ../data/raw/trip_data/BMTC_17_august_to_19_august \
+     --processed-data-path ../data/processed
      --dates "date=2025-08-17" \
      --include-routes "1708,15889,4247"
    ```
