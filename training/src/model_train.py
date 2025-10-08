@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 import pandas as pd
 import logging
+from utils.utils import Utils
 
 # Setup logging
 logging.basicConfig(
@@ -40,7 +41,7 @@ class ModelTrainer:
         self.route_data_feats_path = self.data_path / "route_data_feats"
         self.available_routes = [route.name.split("_")[1] for route in self.route_data_feats_path.iterdir() if route.is_dir()]
         self.model = HeuristicModel()
-        self.model_path = model_path
+        self.model_path = Path(model_path) / "model.pkl"
         logger.info(f"Initialized ModelTrainer with {len(self.available_routes)} available routes")
 
     def train(self):
@@ -54,7 +55,7 @@ class ModelTrainer:
         all_dfs = []
         
         for route_id in self.available_routes:
-            logger.info(f"Loading data for route {route_id}")
+            # logger.info(f"Loading data for route {route_id}")
             try:
                 # Try reading with schema inference disabled and ignore schema conflicts
                 route_data = ds.dataset(
@@ -101,7 +102,7 @@ class ModelTrainer:
             # Filter out invalid data
             route_data_df = route_data_df[route_data_df.segment_duration > 0].reset_index(drop=True)
             all_dfs.append(route_data_df)
-            logger.info(f"Loaded {len(route_data_df)} records for route {route_id}")
+            # logger.info(f"Loaded {len(route_data_df)} records for route {route_id}")
         
         if not all_dfs:
             logger.error("No training data loaded")
@@ -116,10 +117,10 @@ class ModelTrainer:
         self.model.train(combined_data, 'default')
         
         # Save the model
-        model_path = self.model_path / "model.pkl"
-        self.model.save(model_path)
-        logger.info(f"Model saved to {model_path}")
+        self.model.save(self.model_path)
+        logger.info(f"Model saved to {self.model_path}")
 
+@Utils.timeit
 def main():
     """
     Main entry point for model training.
@@ -144,8 +145,8 @@ Examples:
     arg_parser.add_argument(
         "--model-path", 
         type=str, 
-        required=True, 
-        default="../models/model.pkl",
+        required=False, 
+        default="../models",
         help="Path to the model file"
     )
     args = arg_parser.parse_args()
