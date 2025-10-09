@@ -1,6 +1,6 @@
 # Bangalore Last Mile Challenge - Bus Arrival Prediction System
 
-A comprehensive machine learning solution for predicting bus arrival times in Bangalore's public transportation system using historical trip data and real-time GPS information.
+A comprehensive Rule Engine for predicting bus arrival times in Bangalore's public transportation system using historical trip data and real-time GPS information.
 
 ## Table of Contents
 
@@ -36,7 +36,7 @@ The system uses a heuristic approach that analyzes historical travel patterns be
 
 ### Software Requirements
 - **Operating System**: Linux, macOS, or Windows
-- **Python**: 3.11+
+- **Python**: 3.9+
 - **Docker**: 20.10+ (for containerized deployment)
 - **Git**: For version control
 
@@ -66,7 +66,7 @@ bangalore-last-mile-challenge/
 └── requirements.txt         # Global dependencies
 ```
 
-## Installation & Setup
+## Local Installation & Setup
 
 ### 1. Clone Repository
 ```bash
@@ -77,7 +77,7 @@ cd bangalore-last-mile-challenge
 ### 2. Create Conda Environment
 ```bash
 # Create conda environment
-conda create -n blmc python=3.11
+conda create -n blmc python=3.9
 
 # Activate environment
 conda activate blmc
@@ -89,7 +89,7 @@ conda activate blmc
 # Install dependencies
 conda install -c conda-forge --file requirements.txt
 
-# Install geopandas and spatial libraries (If error)
+# Install geopandas and spatial libraries (If above gives error)
 conda install -c conda-forge geopandas pyarrow
 ```
 
@@ -105,14 +105,24 @@ cd inference
 docker build --platform linux/amd64 -t gouherdanishiitkgp/blmc-docker-repo:v2 .
 ```
 
-#### Step 2: Prepare Data Volumes
+#### Step 2: Prepare Data Volumes (For Illustration Purpose)
 ```bash
 # Create data directories
-mkdir -p data/input data/output
+mkdir -p data/eval_data
 
 # Copy your input data
-cp your_trip_data.parquet data/input/
+cp your_trip_data.parquet data/eval_data/
+
+# Create input.json
+cd data
+touch input.json
 ```
+
+**Input Json Format**
+```json
+{
+  "1":"eval_data/your_trip_data.parquet"
+}
 
 #### Step 3: Run the Container
 ```bash
@@ -180,9 +190,9 @@ graph TD
 - **Feature Extraction**: Extract features for prediction
 - **Model Inference**: Generate arrival time predictions
 
-## Notebooks & Scripts
+## Notebooks (Not used for Production)
 
-### Preprocessing Notebooks
+### Preprocessing Notebooks 
 - **`demo.ipynb`**: Demonstration of preprocessing pipeline
 - **`explore.ipynb`**: Data exploration and analysis
 - **`rough.ipynb`**: Experimental analysis and prototyping
@@ -192,7 +202,7 @@ graph TD
 - **`model_patterns.ipynb`**: Model pattern analysis and visualization
 - **`create_test_data.ipynb`**: Test data generation utilities
 
-### Key Scripts
+### Key Scripts (Used)
 
 #### Preprocessing Scripts
 - **`static_data_processor.py`**: Process static reference data
@@ -223,8 +233,6 @@ rtree==1.3.0
 
 ### Additional Dependencies
 ```
-scikit-learn
-scipy
 matplotlib
 seaborn
 jupyter
@@ -250,7 +258,6 @@ This project uses the following open-source libraries and models:
 - **Pandas**: Data manipulation and analysis
 - **NumPy**: Numerical computing
 - **PyArrow**: Columnar data processing
-- **Scikit-learn**: Machine learning utilities
 
 ### Visualization
 - **Matplotlib**: Plotting and visualization
@@ -298,22 +305,25 @@ python predict.py \
 ```bash
 # Build and run with Docker
 cd inference
-docker build -t blmc v1er run -v $(pwd)/data:/app/data -v $(pwd)/out:/app/out blmc
-v1## Input/Output Format
+docker build --platform linux/amd64 -t gouherdanishiitkgp/blmc-docker-repo:v2 .
+docker run -v $(pwd)/data:/app/data gouherdanishiitkgp/blmc-docker-repo:v2 --input-json /app/data/input.json --output-json /app/out/output.json
+```
+
+## Input/Output Format
 
 #### Input JSON Format
 ```json
-{
-  "0": "route_1708_trip_68185898.parquet",
-  "1": "route_15889_trip_12345678.parquet"
-}
+{   
+  "1":"path_to_the_parquet_file",   
+  "2":"path_to_the_parquet_file",
+ }
 ```
 
 #### Output JSON Format
 ```json
-{
-  "1708": [120, 240, 360],
-  "15889": [90, 180, 270]
+{ 
+  "route_id":{"stop_id":"time_stamp", "stop-id2":"time_stamp"}, 
+  "route_id":{"stop_id":"time_stamp", "stop-id2":"time_stamp"}
 }
 ```
 
@@ -333,7 +343,7 @@ conda install -c conda-forge geopandas fiona shapely pyproj rtree
 docker system prune -a
 
 # Rebuild with no cache
-docker build --no-cache -t blmc v1
+docker build --no-cache -t gouherdanishiitkgp/blmc-docker-repo:v2
 #### 3. Data Processing Errors
 ```bash
 # Check data format
@@ -352,8 +362,10 @@ python -c "import pickle; print(pickle.load(open('models/model.pkl', 'rb')).keys
 ### Performance Optimization
 
 #### Memory Management
-- Use `--max-routes` parameter to limit processing
 - Process data in smaller batches
+  - Use `--max-routes` parameter to limit processing
+  - Use `--include-routes` to only process for selected routes
+  - Use `--exclude-routes` to process for all routes other than the selected routes
 - Monitor memory usage during training
 
 #### Processing Speed
@@ -391,7 +403,7 @@ The solution is designed to run on standard evaluation workstations with:
 - Standard storage interfaces
 
 ### Performance Expectations
-- **Preprocessing**: 10-30 minutes for typical datasets
+- **Preprocessing**: 10-30 minutes for 1 route for 1 day
 - **Training**: 5-15 minutes for heuristic models
 - **Inference**: Real-time processing (< 1 second per route)
 
@@ -402,16 +414,6 @@ The solution is designed to run on standard evaluation workstations with:
 - Route and stop identifiers
 
 ## Contributing
-
-### Development Setup
-```bash
-# Install development dependencies
-pip install -r requirements.txt
-pip install jupyter matplotlib seaborn
-
-# Run tests
-python -m pytest tests/
-```
 
 ### Code Style
 - Follow PEP 8 guidelines

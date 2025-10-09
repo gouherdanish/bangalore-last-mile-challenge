@@ -132,7 +132,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python model_train.py --processed-data-path ../../preprocessing/data/processed
+  python model_train.py --processed-data-path ../../preprocessing/data/processed --model-path ../models
         """
     )
     arg_parser.add_argument(
