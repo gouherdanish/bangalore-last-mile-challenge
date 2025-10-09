@@ -348,6 +348,7 @@ Final: Combined training data: 5,420 total records
 - **Average Absolute Error**: 134.2 seconds
 - **Root Mean Square Error (RMSE)**: 178.5 seconds  
 - **Mean Absolute Percentage Error (MAPE)**: 2.8%
+- **Overall ETA Score**: 2.05 minutes (123 seconds)
 - **Perfect Predictions**: 0 out of 25 stops (0%)
 - **Predictions within 1 minute**: 8 out of 25 stops (32.0%)
 - **Predictions within 2 minutes**: 15 out of 25 stops (60.0%)
