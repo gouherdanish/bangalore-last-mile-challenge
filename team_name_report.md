@@ -281,7 +281,7 @@ Final: Combined training data: 5,420 total records
 
 #### Training Dataset Results
 
-<img src="{{site.url}}/inference/images/route_2726.png">
+![Mean Speed Variations](inference/images/route_1861.png)
 
 **Comparative Analysis: Actual vs Predicted Arrival Times**
 
@@ -312,7 +312,7 @@ Final: Combined training data: 5,420 total records
 
 #### Validation Dataset Results
 
-<img src="{{site.url}}/inference/images/route_2726.png">
+![Mean Speed Variations](inference/images/route_1861.png)
 
 **Comparative Analysis: Actual vs Predicted Arrival Times (Route 1861)**
 
@@ -366,12 +366,11 @@ Final: Combined training data: 5,420 total records
 #### Pattern Analysis Charts
 - **Speed Distributions**: Histogram showing distribution of speeds across all trips passing through a Given Stop for a given day by hour 
 
-<!-- ![Speed Distributions](inference/images/stop_21783_speeds.png) -->
-<img src={{site.url}}/inference/images/route_2726.png>
+![Mean Speed Variations](inference/images/stop_21783_speed_hist.png)
 
 - **Mean Speed Variations**: Line Plot showing mean speeds patterns by hour and day
 
-![Mean Speed Variations](inference/images/stop_21783_speed_hist.png)
+![Speed Distributions](inference/images/stop_21783_speeds.png)
 
 
 #### Performance Monitoring
