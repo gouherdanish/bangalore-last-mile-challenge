@@ -366,11 +366,11 @@ Final: Combined training data: 5,420 total records
 #### Pattern Analysis Charts
 - **Speed Distributions**: Histogram showing distribution of speeds across all trips passing through a Given Stop for a given day by hour 
 
-<img src="{{site.url}}/inference/images/stop_21783_speeds.png">
+![Speed Distributions](inference/images/stop_21783_speeds.png)
 
 - **Mean Speed Variations**: Line Plot showing mean speeds patterns by hour and day
 
-<img src="{{site.url}}/inference/images/stop_21783_speed_hist.png">
+![Mean Speed Variations](inference/images/stop_21783_speed_hist.png)
 
 
 #### Performance Monitoring
