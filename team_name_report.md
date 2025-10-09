@@ -373,12 +373,6 @@ Final: Combined training data: 5,420 total records
 
 ![Speed Distributions](inference/images/stop_21783_speeds.png)
 
-
-#### Performance Monitoring
-- **Processing Time**: Line charts showing processing efficiency
-- **Memory Usage**: Resource utilization over time
-- **Prediction Accuracy**: Error distribution analysis
-
 ---
 
 ## Conclusions
