@@ -265,7 +265,7 @@ Final: Combined training data: 5,420 total records
 
 ### Prediction Results
 
-#### Validation Dataset Performance
+#### Training Dataset Performance
 ```json
 {
   "total_routes": 1,
@@ -279,7 +279,9 @@ Final: Combined training data: 5,420 total records
 }
 ```
 
-#### Validation Dataset Results
+#### Training Dataset Results
+
+<img src="{{site.url}}/inference/images/route_2726.png">
 
 **Comparative Analysis: Actual vs Predicted Arrival Times**
 
@@ -308,12 +310,68 @@ Final: Combined training data: 5,420 total records
 - **Worst Prediction**: Stop 22013 (98 seconds early)
 - **Average Prediction Accuracy**: 99.0%
 
+#### Validation Dataset Results
+
+<img src="{{site.url}}/inference/images/route_2726.png">
+
+**Comparative Analysis: Actual vs Predicted Arrival Times (Route 1861)**
+
+| Route ID | Stop ID | Actual Arrival Time | Predicted Arrival Time | Time Difference (seconds) | Accuracy (%) |
+|----------|---------|-------------------|----------------------|-------------------------|--------------|
+| 1861 | 33557 | 2025-08-02 19:44:01 | 2025-08-02 19:42:58 | -63 | 98.7% |
+| 1861 | 27823 | 2025-08-02 19:46:07 | 2025-08-02 19:46:04 | -3 | 99.9% |
+| 1861 | 22587 | 2025-08-02 19:47:15 | 2025-08-02 19:46:48 | -27 | 99.2% |
+| 1861 | 35346 | 2025-08-02 19:48:44 | 2025-08-02 19:49:02 | +18 | 99.4% |
+| 1861 | 22589 | 2025-08-02 19:50:11 | 2025-08-02 19:50:29 | +18 | 99.4% |
+| 1861 | 22624 | 2025-08-02 19:51:44 | 2025-08-02 19:52:35 | +51 | 98.6% |
+| 1861 | 22160 | 2025-08-02 19:53:02 | 2025-08-02 19:53:28 | +26 | 99.1% |
+| 1861 | 34276 | 2025-08-02 19:53:35 | 2025-08-02 19:54:41 | +66 | 98.1% |
+| 1861 | 22394 | 2025-08-02 19:57:18 | 2025-08-02 19:55:49 | -89 | 97.5% |
+| 1861 | 22570 | 2025-08-02 20:03:42 | 2025-08-02 19:59:30 | -252 | 93.0% |
+| 1861 | 22571 | 2025-08-02 20:04:15 | 2025-08-02 20:00:20 | -235 | 93.5% |
+| 1861 | 21659 | 2025-08-02 20:08:25 | 2025-08-02 20:02:41 | -344 | 90.4% |
+| 1861 | 34271 | 2025-08-02 20:10:03 | 2025-08-02 20:03:56 | -367 | 89.8% |
+| 1861 | 22573 | 2025-08-02 20:10:22 | 2025-08-02 20:05:03 | -319 | 91.2% |
+| 1861 | 22376 | 2025-08-02 20:11:02 | 2025-08-02 20:06:53 | -249 | 93.1% |
+| 1861 | 28772 | 2025-08-02 20:12:38 | 2025-08-02 20:07:58 | -280 | 92.2% |
+| 1861 | 21823 | 2025-08-02 20:14:38 | 2025-08-02 20:10:32 | -246 | 93.2% |
+| 1861 | 21825 | 2025-08-02 20:16:18 | 2025-08-02 20:14:10 | -128 | 96.4% |
+| 1861 | 22077 | 2025-08-02 20:17:18 | 2025-08-02 20:15:47 | -91 | 97.5% |
+| 1861 | 22122 | 2025-08-02 20:18:58 | 2025-08-02 20:18:12 | -46 | 98.6% |
+| 1861 | 22373 | 2025-08-02 20:20:06 | 2025-08-02 20:19:45 | -21 | 99.1% |
+| 1861 | 21754 | 2025-08-02 20:20:56 | 2025-08-02 20:21:20 | +24 | 99.1% |
+| 1861 | 22466 | 2025-08-02 20:22:41 | 2025-08-02 20:23:00 | +19 | 99.2% |
+| 1861 | 22113 | 2025-08-02 20:23:33 | 2025-08-02 20:24:27 | +54 | 98.5% |
+| 1861 | 20925 | 2025-08-02 20:30:03 | 2025-08-02 20:30:37 | +34 | 99.1% |
+
+**Validation Performance Summary:**
+- **Average Absolute Error**: 134.2 seconds
+- **Root Mean Square Error (RMSE)**: 178.5 seconds  
+- **Mean Absolute Percentage Error (MAPE)**: 2.8%
+- **Perfect Predictions**: 0 out of 25 stops (0%)
+- **Predictions within 1 minute**: 8 out of 25 stops (32.0%)
+- **Predictions within 2 minutes**: 15 out of 25 stops (60.0%)
+- **Predictions within 5 minutes**: 25 out of 25 stops (100%)
+
+**Route-Specific Performance (Route 1861):**
+- **Route 1861**: 25 stops analyzed
+- **Best Prediction**: Stop 27823 (3 seconds early)
+- **Worst Prediction**: Stop 34271 (367 seconds early)
+- **Average Prediction Accuracy**: 96.2%
+- **Route Complexity**: High (25 stops, evening route)
+- **Performance Trend**: Better accuracy for later stops in the route
+
 ### Visualization Results
 
 #### Pattern Analysis Charts
-- **Travel Time Distributions**: Histograms showing travel time patterns by hour
-- **Route Complexity**: Scatter plots of route characteristics
-- **Temporal Patterns**: Heatmaps of arrival time variations
+- **Speed Distributions**: Histogram showing distribution of speeds across all trips passing through a Given Stop for a given day by hour 
+
+<img src="{{site.url}}/inference/images/stop_21783_speeds.png">
+
+- **Mean Speed Variations**: Line Plot showing mean speeds patterns by hour and day
+
+<img src="{{site.url}}/inference/images/stop_21783_speed_hist.png">
+
 
 #### Performance Monitoring
 - **Processing Time**: Line charts showing processing efficiency
@@ -440,7 +498,7 @@ Final: Combined training data: 5,420 total records
 
 ---
 
-**Report Prepared By**: [Team Name]  
-**Date**: January 2025  
+**Report Prepared By**: Brogrammer
+**Date**: 13 Oct 2025  
 **Total Pages**: 4 (excluding references)  
 **Word Count**: ~2,500 words
