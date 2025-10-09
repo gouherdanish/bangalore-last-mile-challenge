@@ -281,7 +281,7 @@ Final: Combined training data: 5,420 total records
 
 #### Training Dataset Results
 
-![Mean Speed Variations](inference/images/route_1861.png)
+![Mean Speed Variations](inference/images/route_2726.png)
 
 **Comparative Analysis: Actual vs Predicted Arrival Times**
 
