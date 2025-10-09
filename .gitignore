@@ -16,6 +16,7 @@ wheels/
 **/data/
 *old*
 **/*.csv
+ref/
 
 # Model
 **/models/
